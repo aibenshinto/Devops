@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Users</title>
+</head>
+<body>
+    <h1>Registered Users</h1>
+    <button onclick="viewUsers()">View</button>
+    <ul id="userList"></ul>
+    <script>
+        function viewUsers() {
+            fetch('/view')
+            .then(response => response.json())
+            .then(data => {
+                const userList = document.getElementById('userList');
+                userList.innerHTML = '';
+                data.forEach(user => {
+                    const li = document.createElement('li');
+                    li.textContent = `Name: ${user.name}, Email: ${user.email}`;
+                    userList.appendChild(li);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
